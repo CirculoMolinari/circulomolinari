@@ -1,43 +1,45 @@
 import React from 'react'
 
-import type { ArchiveBlockProps } from './types'
-
 import { CollectionArchive } from '../../_components/CollectionArchive'
 import { Gutter } from '../../_components/Gutter'
 import RichText from '../../_components/RichText'
+import { ArchiveBlockProps } from './types'
+
 import classes from './index.module.scss'
 
 export const ArchiveBlock: React.FC<
   ArchiveBlockProps & {
     id?: string
   }
-> = (props) => {
+> = props => {
   const {
-    id,
-    categories,
     introContent,
-    limit,
+    id,
+    relationTo,
     populateBy,
+    limit,
     populatedDocs,
     populatedDocsTotal,
-    relationTo,
+    selectedDocs,
+    categories,
   } = props
 
   return (
-    <div className={classes.archiveBlock} id={`block-${id}`}>
+    <div id={`block-${id}`} className={classes.archiveBlock}>
       {introContent && (
         <Gutter className={classes.introContent}>
           <RichText content={introContent} />
         </Gutter>
       )}
       <CollectionArchive
-        categories={categories}
-        limit={limit}
         populateBy={populateBy}
+        relationTo={relationTo}
         populatedDocs={populatedDocs}
         populatedDocsTotal={populatedDocsTotal}
-        relationTo={relationTo}
-        sort="-publishedDate"
+        selectedDocs={selectedDocs}
+        categories={categories}
+        limit={limit}
+        sort="-publishedAt"
       />
     </div>
   )

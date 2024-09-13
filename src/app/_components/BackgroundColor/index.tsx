@@ -3,17 +3,17 @@ import React from 'react'
 import classes from './index.module.scss'
 
 type Props = {
-  children?: React.ReactNode
-  className?: string
-  id?: string
   invert?: boolean
+  className?: string
+  children?: React.ReactNode
+  id?: string
 }
 
-export const BackgroundColor: React.FC<Props> = (props) => {
-  const { id, children, className, invert } = props
+export const BackgroundColor: React.FC<Props> = props => {
+  const { id, className, children, invert } = props
 
   return (
-    <div className={[invert && classes.invert, className].filter(Boolean).join(' ')} id={id}>
+    <div id={id} className={[invert && classes.invert, className].filter(Boolean).join(' ')}>
       {children}
     </div>
   )

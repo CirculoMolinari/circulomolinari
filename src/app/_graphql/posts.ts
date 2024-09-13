@@ -1,4 +1,4 @@
-import { ARCHIVE_BLOCK, CALL_TO_ACTION, CONTENT, CONTENT_MEDIA, MEDIA_BLOCK } from './blocks'
+import { ARCHIVE_BLOCK, CALL_TO_ACTION, CONTENT, MEDIA_BLOCK } from './blocks'
 import { LINK_FIELDS } from './link'
 import { MEDIA } from './media'
 import { META } from './meta'
@@ -18,13 +18,12 @@ export const POST = `
     Posts(where: { slug: { equals: $slug }}, limit: 1, draft: $draft) {
       docs {
         id
-        slug
         title
         categories {
           title
         }
         createdAt
-        publishedOn
+        publishedAt
         populatedAuthors {
           id
           name
@@ -41,7 +40,6 @@ export const POST = `
           ${CONTENT}
           ${CALL_TO_ACTION}
           ${CONTENT}
-          ${CONTENT_MEDIA}
           ${MEDIA_BLOCK}
           ${ARCHIVE_BLOCK}
         }

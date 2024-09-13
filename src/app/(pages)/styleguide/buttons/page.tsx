@@ -1,14 +1,14 @@
-import type { Metadata } from 'next'
-
-import Link from 'next/link'
 import React, { Fragment } from 'react'
+import { Metadata } from 'next'
+import Link from 'next/link'
 
+import { CallToActionBlock } from '../../../_blocks/CallToAction'
 import { Button } from '../../../_components/Button'
 import { Gutter } from '../../../_components/Gutter'
 import { VerticalPadding } from '../../../_components/VerticalPadding'
 import { mergeOpenGraph } from '../../../_utilities/mergeOpenGraph'
 
-export default function ButtonsPage() {
+export default async function ButtonsPage() {
   return (
     <Fragment>
       <Gutter>
@@ -21,11 +21,11 @@ export default function ButtonsPage() {
       </Gutter>
       <Gutter>
         <VerticalPadding bottom="large" top="none">
-          <Button appearance="default" label="Default Button" />
+          <Button label="Default Button" appearance="default" />
           <br /> <br />
-          <Button appearance="primary" label="Primary Button" />
+          <Button label="Primary Button" appearance="primary" />
           <br /> <br />
-          <Button appearance="secondary" label="Secondary Button" />
+          <Button label="Secondary Button" appearance="secondary" />
         </VerticalPadding>
       </Gutter>
     </Fragment>
@@ -33,10 +33,10 @@ export default function ButtonsPage() {
 }
 
 export const metadata: Metadata = {
+  title: 'Buttons',
   description: 'Styleguide for Buttons',
   openGraph: mergeOpenGraph({
     title: 'Buttons',
     url: '/styleguide/buttons',
   }),
-  title: 'Buttons',
 }

@@ -1,12 +1,12 @@
 const policies = {
-  'child-src': ["'self'"],
-  'connect-src': ["'self'", 'https://maps.googleapis.com'],
   'default-src': ["'self'"],
+  'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'", 'https://maps.googleapis.com'],
+  'child-src': ["'self'"],
+  'style-src': ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+  'img-src': ["'self'", 'https://raw.githubusercontent.com'],
   'font-src': ["'self'"],
   'frame-src': ["'self'"],
-  'img-src': ["'self'", 'https://raw.githubusercontent.com'],
-  'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'", 'https://maps.googleapis.com'],
-  'style-src': ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+  'connect-src': ["'self'", 'https://maps.googleapis.com'],
 }
 
 module.exports = Object.entries(policies)

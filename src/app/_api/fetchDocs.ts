@@ -1,24 +1,24 @@
 import type { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies'
 
 import type { Config } from '../../payload/payload-types'
-
 import { PAGES } from '../_graphql/pages'
 import { POSTS } from '../_graphql/posts'
 import { PROJECTS } from '../_graphql/projects'
+import { GRAPHQL_API_URL } from './shared'
 import { payloadToken } from './token'
 
 const queryMap = {
   pages: {
-    key: 'Pages',
     query: PAGES,
+    key: 'Pages',
   },
   posts: {
-    key: 'Posts',
     query: POSTS,
+    key: 'Posts',
   },
   projects: {
-    key: 'Projects',
     query: PROJECTS,
+    key: 'Projects',
   },
 }
 
@@ -36,21 +36,21 @@ export const fetchDocs = async <T>(
     token = cookies().get(payloadToken)
   }
 
-  const docs: T[] = await fetch(`${process.env.PAYLOAD_PUBLIC_SERVER_URL}/api/graphql`, {
-    body: JSON.stringify({
-      query: queryMap[collection].query,
-      variables,
-    }),
-    cache: 'no-store',
+  const docs: T[] = await fetch(`${GRAPHQL_API_URL}/api/graphql`, {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       ...(token?.value && draft ? { Authorization: `JWT ${token.value}` } : {}),
     },
-    method: 'POST',
+    cache: 'no-store',
     next: { tags: [collection] },
+    body: JSON.stringify({
+      query: queryMap[collection].query,
+      variables,
+    }),
   })
-    ?.then((res) => res.json())
-    ?.then((res) => {
+    ?.then(res => res.json())
+    ?.then(res => {
       if (res.errors) throw new Error(res?.errors?.[0]?.message ?? 'Error fetching docs')
 
       return res?.data?.[queryMap[collection].key]?.docs

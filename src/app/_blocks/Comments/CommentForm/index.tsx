@@ -1,16 +1,16 @@
 'use client'
 
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import React, { Fragment, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
-import type { Comment } from '../../../../payload/payload-types'
-
+import { Comment } from '../../../../payload/payload-types'
 import { Button } from '../../../_components/Button'
 import { Input } from '../../../_components/Input'
 import { Message } from '../../../_components/Message'
 import { useAuth } from '../../../_providers/Auth'
+
 import classes from './index.module.scss'
 
 type FormData = {
@@ -21,13 +21,13 @@ export const CommentForm: React.FC<{
   docID: string
 }> = ({ docID }) => {
   const pathname = usePathname()
-  const [error, setError] = React.useState<null | string>(null)
+  const [error, setError] = React.useState<string | null>(null)
   const [success, setSuccess] = React.useState<React.ReactNode | null>(null)
 
   const {
-    formState: { errors, isLoading },
-    handleSubmit,
     register,
+    handleSubmit,
+    formState: { errors, isLoading },
     reset,
   } = useForm<FormData>()
 
@@ -39,18 +39,18 @@ export const CommentForm: React.FC<{
 
       try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/comments`, {
-          body: JSON.stringify({
-            // All comments are created as drafts so that they can be moderated before being published
-            // Navigate to the admin dashboard and change the comment status to "published" for it to appear on the site
-            doc: docID,
-            status: 'draft',
-            user: user.id,
-            ...data,
-          }),
+          method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          method: 'POST',
+          body: JSON.stringify({
+            // All comments are created as drafts so that they can be moderated before being published
+            // Navigate to the admin dashboard and change the comment status to "published" for it to appear on the site
+            status: 'draft',
+            doc: docID,
+            user: user.id,
+            ...data,
+          }),
         })
 
         const json: Comment & {
@@ -84,18 +84,18 @@ export const CommentForm: React.FC<{
   )
 
   return (
-    <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-      <Message className={classes.message} error={error} success={success} />
+    <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
+      <Message error={error} success={success} className={classes.message} />
       <Input
-        disabled={!user}
-        error={errors.comment}
-        label="Comment"
         name="comment"
-        placeholder={user ? 'Leave a comment' : 'Login to leave a comment'}
-        register={register}
+        label="Comment"
         required
+        register={register}
+        error={errors.comment}
         type="textarea"
-        validate={(value) => {
+        placeholder={user ? 'Leave a comment' : 'Login to leave a comment'}
+        disabled={!user}
+        validate={value => {
           if (!value) return 'Please enter a comment'
           if (value.length < 3) return 'Please enter a comment over 3 characters'
           if (value.length > 500) return 'Please enter a comment under 500 characters'
@@ -104,19 +104,19 @@ export const CommentForm: React.FC<{
       />
       {!user ? (
         <Button
-          appearance="primary"
-          className={classes.submit}
-          disabled={isLoading}
           href={`/login?redirect=${encodeURIComponent(pathname)}`}
+          appearance="primary"
           label="Login to comment"
+          disabled={isLoading}
+          className={classes.submit}
         />
       ) : (
         <Button
-          appearance="primary"
-          className={classes.submit}
-          disabled={isLoading}
-          label={isLoading ? 'Processing' : 'Comment'}
           type="submit"
+          appearance="primary"
+          label={isLoading ? 'Processing' : 'Comment'}
+          disabled={isLoading}
+          className={classes.submit}
         />
       )}
     </form>

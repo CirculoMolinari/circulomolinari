@@ -1,14 +1,13 @@
-import type { Metadata } from 'next'
-
-import Link from 'next/link'
 import React, { Fragment } from 'react'
+import { Metadata } from 'next'
+import Link from 'next/link'
 
 import { Gutter } from '../../../_components/Gutter'
 import { Message } from '../../../_components/Message'
 import { VerticalPadding } from '../../../_components/VerticalPadding'
 import { mergeOpenGraph } from '../../../_utilities/mergeOpenGraph'
 
-export default function MessageComponentPage() {
+export default async function MessageComponentPage() {
   return (
     <Fragment>
       <Gutter>
@@ -35,10 +34,10 @@ export default function MessageComponentPage() {
 }
 
 export const metadata: Metadata = {
+  title: 'Message Component',
   description: 'Styleguide for message component.',
   openGraph: mergeOpenGraph({
     title: 'Message Component',
     url: '/styleguide/message',
   }),
-  title: 'Message Component',
 }

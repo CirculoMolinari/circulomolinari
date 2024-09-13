@@ -2,12 +2,12 @@
 
 import React, { useEffect, useRef } from 'react'
 
-import type { Props as MediaProps } from '../types'
+import { Props as MediaProps } from '../types'
 
 import classes from './index.module.scss'
 
-export const Video: React.FC<MediaProps> = (props) => {
-  const { onClick, resource, videoClassName } = props
+export const Video: React.FC<MediaProps> = props => {
+  const { videoClassName, resource, onClick } = props
 
   const videoRef = useRef<HTMLVideoElement>(null)
   // const [showFallback] = useState<boolean>()
@@ -27,13 +27,13 @@ export const Video: React.FC<MediaProps> = (props) => {
 
     return (
       <video
-        autoPlay
-        className={[classes.video, videoClassName].filter(Boolean).join(' ')}
-        controls={false}
-        loop
-        muted
-        onClick={onClick}
         playsInline
+        autoPlay
+        muted
+        loop
+        controls={false}
+        className={[classes.video, videoClassName].filter(Boolean).join(' ')}
+        onClick={onClick}
         ref={videoRef}
       >
         <source src={`${process.env.NEXT_PUBLIC_SERVER_URL}/media/${filename}`} />

@@ -1,8 +1,7 @@
 import type { AccessArgs } from 'payload/config'
 
-import type { User } from '../payload-types'
-
 import { checkRole } from '../collections/Users/checkRole'
+import type { User } from '../payload-types'
 
 type isAdmin = (args: AccessArgs<unknown, User>) => boolean
 

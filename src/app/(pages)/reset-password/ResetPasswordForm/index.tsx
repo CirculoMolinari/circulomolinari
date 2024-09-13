@@ -1,13 +1,14 @@
 'use client'
 
-import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 import { Button } from '../../../_components/Button'
 import { Input } from '../../../_components/Input'
 import { Message } from '../../../_components/Message'
 import { useAuth } from '../../../_providers/Auth'
+
 import classes from './index.module.scss'
 
 type FormData = {
@@ -23,9 +24,9 @@ export const ResetPasswordForm: React.FC = () => {
   const token = searchParams.get('token')
 
   const {
-    formState: { errors },
-    handleSubmit,
     register,
+    handleSubmit,
+    formState: { errors },
     reset,
   } = useForm<FormData>()
 
@@ -34,11 +35,11 @@ export const ResetPasswordForm: React.FC = () => {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/reset-password`,
         {
+          method: 'POST',
           body: JSON.stringify(data),
           headers: {
             'Content-Type': 'application/json',
           },
-          method: 'POST',
         },
       )
 
@@ -64,22 +65,22 @@ export const ResetPasswordForm: React.FC = () => {
   }, [reset, token])
 
   return (
-    <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-      <Message className={classes.message} error={error} />
+    <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
+      <Message error={error} className={classes.message} />
       <Input
-        error={errors.password}
-        label="New Password"
         name="password"
-        register={register}
-        required
         type="password"
+        label="New Password"
+        required
+        register={register}
+        error={errors.password}
       />
       <input type="hidden" {...register('token')} />
       <Button
-        appearance="primary"
-        className={classes.submit}
-        label="Reset Password"
         type="submit"
+        appearance="primary"
+        label="Reset Password"
+        className={classes.submit}
       />
     </form>
   )

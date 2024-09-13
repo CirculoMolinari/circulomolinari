@@ -1,5 +1,9 @@
 {
-  "exec": "ts-node src/server.ts",
+  "$schema": "https://json.schemastore.org/nodemon.json",
   "ext": "ts",
-  "ignore": ["src/app"]
+  "exec": "ts-node src/server.ts -- -I",
+  "stdin": false,
+  "ignore" : [
+    "src/app"
+  ]
 }

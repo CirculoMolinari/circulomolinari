@@ -1,31 +1,31 @@
-import Link from 'next/link'
 import React, { Fragment } from 'react'
+import Link from 'next/link'
 
-import type { Category, Post, Project } from '../../../payload/payload-types'
-
+import { Post, Project } from '../../../payload/payload-types'
 import { Media } from '../Media'
+
 import classes from './index.module.scss'
 
 export const Card: React.FC<{
   alignItems?: 'center'
   className?: string
-  doc?: Post | Project
-  hideImagesOnMobile?: boolean
-  orientation?: 'horizontal' | 'vertical'
-  relationTo?: 'posts' | 'projects'
   showCategories?: boolean
+  hideImagesOnMobile?: boolean
   title?: string
-}> = (props) => {
+  relationTo?: 'projects' | 'posts'
+  doc?: Project | Post
+  orientation?: 'horizontal' | 'vertical'
+}> = props => {
   const {
-    className,
-    doc,
-    orientation = 'vertical',
     relationTo,
     showCategories,
     title: titleFromProps,
+    doc,
+    className,
+    orientation = 'vertical',
   } = props
 
-  const { categories, meta, slug, title } = doc || {}
+  const { slug, title, categories, meta } = doc || {}
   const { description, image: metaImage } = meta || {}
 
   const hasCategories = categories && Array.isArray(categories) && categories.length > 0
@@ -39,15 +39,10 @@ export const Card: React.FC<{
         .filter(Boolean)
         .join(' ')}
     >
-      <Link className={classes.mediaWrapper} href={href}>
+      <Link href={href} className={classes.mediaWrapper}>
         {!metaImage && <div className={classes.placeholder}>No image</div>}
         {metaImage && typeof metaImage !== 'string' && (
-          <Media
-            fill
-            imgClassName={classes.image}
-            resource={metaImage}
-            sizes="(max-width: 768px) 100vw, 20vw"
-          />
+          <Media imgClassName={classes.image} resource={metaImage} fill />
         )}
       </Link>
       <div className={classes.content}>
@@ -56,18 +51,22 @@ export const Card: React.FC<{
             {showCategories && hasCategories && (
               <div>
                 {categories?.map((category, index) => {
-                  const { title: titleFromCategory } = category as Category
+                  if (typeof category === 'object') {
+                    const { title: titleFromCategory } = category
 
-                  const categoryTitle = titleFromCategory || 'Untitled category'
+                    const categoryTitle = titleFromCategory || 'Untitled category'
 
-                  const isLast = index === categories.length - 1
+                    const isLast = index === categories.length - 1
 
-                  return (
-                    <Fragment key={index}>
-                      {categoryTitle}
-                      {!isLast && <Fragment>, &nbsp;</Fragment>}
-                    </Fragment>
-                  )
+                    return (
+                      <Fragment key={index}>
+                        {categoryTitle}
+                        {!isLast && <Fragment>, &nbsp;</Fragment>}
+                      </Fragment>
+                    )
+                  }
+
+                  return null
                 })}
               </div>
             )}
@@ -75,7 +74,7 @@ export const Card: React.FC<{
         )}
         {titleToUse && (
           <h4 className={classes.title}>
-            <Link className={classes.titleLink} href={href}>
+            <Link href={href} className={classes.titleLink}>
               {titleToUse}
             </Link>
           </h4>

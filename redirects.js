@@ -5,16 +5,16 @@
 
 module.exports = async () => {
   const internetExplorerRedirect = {
-    destination: '/ie-incompatible.html',
+    source: '/:path((?!ie-incompatible.html$).*)', // all pages except the incompatibility page
     has: [
       {
-        key: 'user-agent',
         type: 'header',
+        key: 'user-agent',
         value: '(.*Trident.*)', // all ie browsers
       },
     ],
     permanent: false,
-    source: '/:path((?!ie-incompatible.html$).*)', // all pages except the incompatibility page
+    destination: '/ie-incompatible.html',
   }
 
   try {
@@ -28,8 +28,8 @@ module.exports = async () => {
     let dynamicRedirects = []
 
     if (docs) {
-      docs.forEach((doc) => {
-        const { from, to: { reference, type, url } = {} } = doc
+      docs.forEach(doc => {
+        const { from, to: { type, url, reference } = {} } = doc
 
         let source = from
           .replace(process.env.NEXT_PUBLIC_SERVER_URL, '')
@@ -55,9 +55,9 @@ module.exports = async () => {
         }
 
         const redirect = {
+          source,
           destination,
           permanent: true,
-          source,
         }
 
         if (source.startsWith('/') && destination && source !== destination) {

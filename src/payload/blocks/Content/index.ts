@@ -7,26 +7,26 @@ import richText from '../../fields/richText'
 const columnFields: Field[] = [
   {
     name: 'size',
+    type: 'select',
     defaultValue: 'oneThird',
     options: [
       {
-        label: 'One Third',
         value: 'oneThird',
+        label: 'One Third',
       },
       {
-        label: 'Half',
         value: 'half',
+        label: 'Half',
       },
       {
-        label: 'Two Thirds',
         value: 'twoThirds',
+        label: 'Two Thirds',
       },
       {
-        label: 'Full',
         value: 'full',
+        label: 'Full',
       },
     ],
-    type: 'select',
   },
   richText(),
   {
@@ -43,13 +43,13 @@ const columnFields: Field[] = [
 ]
 
 export const Content: Block = {
+  slug: 'content',
   fields: [
     invertBackground,
     {
       name: 'columns',
-      fields: columnFields,
       type: 'array',
+      fields: columnFields,
     },
   ],
-  slug: 'content',
 }

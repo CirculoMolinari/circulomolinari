@@ -1,25 +1,24 @@
 import type { ArrayField } from 'payload/dist/fields/config/types'
 import type { Field } from 'payload/types'
 
-import type { LinkAppearances } from './link'
-
 import deepMerge from '../utilities/deepMerge'
+import type { LinkAppearances } from './link'
 import link from './link'
 
 type LinkGroupType = (options?: {
-  appearances?: LinkAppearances[] | false
   overrides?: Partial<ArrayField>
+  appearances?: LinkAppearances[] | false
 }) => Field
 
-const linkGroup: LinkGroupType = ({ appearances, overrides = {} } = {}) => {
+const linkGroup: LinkGroupType = ({ overrides = {}, appearances } = {}) => {
   const generatedLinkGroup: Field = {
     name: 'links',
+    type: 'array',
     fields: [
       link({
         appearances,
       }),
     ],
-    type: 'array',
   }
 
   return deepMerge(generatedLinkGroup, overrides)

@@ -5,90 +5,85 @@ import { adminsOrPublished } from '../../access/adminsOrPublished'
 import { Archive } from '../../blocks/ArchiveBlock'
 import { CallToAction } from '../../blocks/CallToAction'
 import { Content } from '../../blocks/Content'
-import { ContentMedia } from '../../blocks/ContentMedia'
 import { MediaBlock } from '../../blocks/MediaBlock'
-import richText from '../../fields/richText'
+import { hero } from '../../fields/hero'
 import { slugField } from '../../fields/slug'
 import { populateArchiveBlock } from '../../hooks/populateArchiveBlock'
-import { populatePublishedDate } from '../../hooks/populatePublishedDate'
+import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { revalidateProject } from './hooks/revalidateProject'
 
 export const Projects: CollectionConfig = {
-  access: {
-    create: admins,
-    delete: () => false,
-    read: adminsOrPublished,
-    update: admins,
-  },
+  slug: 'projects',
   admin: {
+    useAsTitle: 'title',
     defaultColumns: ['title', 'slug', 'updatedAt'],
-    livePreview: {
-      url: ({ data }) => `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/projects/${data?.slug}`,
-    },
-    preview: (doc) => {
-      return `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/api/preview?url=${encodeURIComponent(
-        `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/projects/${doc?.slug as string}`,
+    preview: doc => {
+      return `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/next/preview?url=${encodeURIComponent(
+        `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/projects/${doc?.slug}`,
       )}&secret=${process.env.PAYLOAD_PUBLIC_DRAFT_SECRET}`
     },
-    useAsTitle: 'title',
+  },
+  hooks: {
+    beforeChange: [populatePublishedAt],
+    afterChange: [revalidateProject],
+    afterRead: [populateArchiveBlock],
+  },
+  versions: {
+    drafts: true,
+  },
+  access: {
+    read: adminsOrPublished,
+    update: admins,
+    create: admins,
+    delete: admins,
   },
   fields: [
     {
       name: 'title',
-      required: true,
       type: 'text',
+      required: true,
     },
     {
       name: 'categories',
-      admin: {
-        position: 'sidebar',
-      },
-      hasMany: true,
-      relationTo: 'categories',
       type: 'relationship',
-    },
-    {
-      name: 'publishedDate',
+      relationTo: 'categories',
+      hasMany: true,
       admin: {
         position: 'sidebar',
       },
-      type: 'date',
     },
     {
+      name: 'publishedAt',
+      type: 'date',
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      type: 'tabs',
       tabs: [
         {
-          fields: [
-            {
-              name: 'hero',
-              fields: [
-                richText(),
-                {
-                  name: 'media',
-                  relationTo: 'media',
-                  type: 'upload',
-                },
-              ],
-              type: 'group',
-            },
-          ],
           label: 'Hero',
+          fields: [hero],
         },
         {
+          label: 'Content',
           fields: [
             {
               name: 'layout',
-              blocks: [CallToAction, Content, ContentMedia, MediaBlock, Archive],
-              required: true,
               type: 'blocks',
+              required: true,
+              blocks: [CallToAction, Content, MediaBlock, Archive],
             },
           ],
-          label: 'Content',
         },
       ],
-      type: 'tabs',
     },
     {
       name: 'relatedProjects',
+      type: 'relationship',
+      relationTo: 'projects',
+      hasMany: true,
       filterOptions: ({ id }) => {
         return {
           id: {
@@ -96,19 +91,7 @@ export const Projects: CollectionConfig = {
           },
         }
       },
-      hasMany: true,
-      relationTo: 'projects',
-      type: 'relationship',
     },
     slugField(),
   ],
-  hooks: {
-    afterChange: [revalidateProject],
-    afterRead: [populateArchiveBlock],
-    beforeChange: [populatePublishedDate],
-  },
-  slug: 'projects',
-  versions: {
-    drafts: true,
-  },
 }

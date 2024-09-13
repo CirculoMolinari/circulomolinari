@@ -3,12 +3,12 @@ import React from 'react'
 import classes from './index.module.scss'
 
 export const Message: React.FC<{
-  className?: string
-  error?: React.ReactNode
   message?: React.ReactNode
+  error?: React.ReactNode
   success?: React.ReactNode
   warning?: React.ReactNode
-}> = ({ className, error, message, success, warning }) => {
+  className?: string
+}> = ({ message, error, success, warning, className }) => {
   const messageToRender = message || error || success || warning
 
   if (messageToRender) {

@@ -1,13 +1,12 @@
-import type { Metadata } from 'next'
-
 import React from 'react'
+import { Metadata } from 'next'
 
-import type { Settings } from '../../../payload/payload-types'
-
+import { Settings } from '../../../payload/payload-types'
 import { fetchSettings } from '../../_api/fetchGlobals'
 import { Gutter } from '../../_components/Gutter'
 import { mergeOpenGraph } from '../../_utilities/mergeOpenGraph'
 import { LogoutPage } from './LogoutPage'
+
 import classes from './index.module.scss'
 
 export default async function Logout() {
@@ -30,10 +29,10 @@ export default async function Logout() {
 }
 
 export const metadata: Metadata = {
+  title: 'Logout',
   description: 'You have been logged out.',
   openGraph: mergeOpenGraph({
     title: 'Logout',
     url: '/logout',
   }),
-  title: 'Logout',
 }

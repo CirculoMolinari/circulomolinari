@@ -1,30 +1,29 @@
-/* eslint-disable react/no-unescaped-entities */
 'use client'
 
-import Link from 'next/link'
 import React, { Fragment } from 'react'
+import Link from 'next/link'
 
-import type { Comment, Post, Project } from '../../../payload/payload-types'
-
+import { Comment, Post, Project } from '../../../payload/payload-types'
 import { Gutter } from '../../_components/Gutter'
 import { HR } from '../../_components/HR'
 import { Message } from '../../_components/Message'
 import RichText from '../../_components/RichText'
 import { formatDateTime } from '../../_utilities/formatDateTime'
 import { CommentForm } from './CommentForm'
+
 import classes from './index.module.scss'
 
 export type CommentsBlockProps = {
-  blockName: string
   blockType: 'comments'
-  comments: Comment[]
-  doc: Post | Project
+  blockName: string
   introContent?: any
+  doc: Post | Project
   relationTo: 'posts' | 'projects'
+  comments: Comment[]
 }
 
-export const CommentsBlock: React.FC<CommentsBlockProps> = (props) => {
-  const { comments, doc, introContent } = props
+export const CommentsBlock: React.FC<CommentsBlockProps> = props => {
+  const { introContent, doc, comments } = props
 
   return (
     <div className={classes.commentsBlock}>
@@ -37,7 +36,7 @@ export const CommentsBlock: React.FC<CommentsBlockProps> = (props) => {
         <div className={classes.comments}>
           <HR />
           {comments?.map((com, index) => {
-            const { _status, comment, createdAt, populatedUser } = com
+            const { populatedUser, comment, createdAt, _status } = com
 
             if (!comment) return null
 

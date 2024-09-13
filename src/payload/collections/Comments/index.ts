@@ -1,12 +1,23 @@
 import type { CollectionConfig } from 'payload/types'
 
 import type { Comment } from '../../payload-types'
-
 import { checkRole } from '../Users/checkRole'
 import { populateUser } from './hooks/populateUser'
 import { revalidatePost } from './hooks/revalidatePost'
 
 const Comments: CollectionConfig = {
+  slug: 'comments',
+  admin: {
+    useAsTitle: 'comment',
+    preview: (comment: Partial<Comment>) =>
+      `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/posts/${
+        comment?.doc && typeof comment?.doc === 'object' ? comment?.doc?.slug : comment?.doc
+      }`,
+  },
+  hooks: {
+    afterChange: [revalidatePost],
+    afterRead: [populateUser],
+  },
   access: {
     // Public users should only be able to read published comments
     // Users should be able to read their own comments
@@ -41,33 +52,28 @@ const Comments: CollectionConfig = {
     // Only admins can delete comments
     delete: ({ req: { user } }) => checkRole(['admin'], user),
   },
-  admin: {
-    preview: (comment: Partial<Comment>) =>
-      `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/posts/${
-        comment?.doc && typeof comment?.doc === 'object'
-          ? comment?.doc?.slug
-          : (comment?.doc as string)
-      }`,
-    useAsTitle: 'comment',
+  versions: {
+    drafts: true,
   },
   fields: [
     {
       name: 'user',
-      hasMany: false,
-      relationTo: 'users',
       type: 'relationship',
+      relationTo: 'users',
+      hasMany: false,
     },
     // This field is only used to populate the user data via the `populateUser` hook
     // This is because the `user` collection has access control locked to protect user privacy
     // GraphQL will also not return mutated user data that differs from the underlying schema
     {
       name: 'populatedUser',
+      type: 'group',
+      admin: {
+        readOnly: true,
+        disabled: true,
+      },
       access: {
         update: () => false,
-      },
-      admin: {
-        disabled: true,
-        readOnly: true,
       },
       fields: [
         {
@@ -79,27 +85,18 @@ const Comments: CollectionConfig = {
           type: 'text',
         },
       ],
-      type: 'group',
     },
     {
       name: 'doc',
-      hasMany: false,
-      relationTo: 'posts',
       type: 'relationship',
+      relationTo: 'posts',
+      hasMany: false,
     },
     {
       name: 'comment',
       type: 'textarea',
     },
   ],
-  hooks: {
-    afterChange: [revalidatePost],
-    afterRead: [populateUser],
-  },
-  slug: 'comments',
-  versions: {
-    drafts: true,
-  },
 }
 
 export default Comments

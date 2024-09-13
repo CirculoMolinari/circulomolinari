@@ -1,6 +1,6 @@
 interface Args {
-  disableAppearance?: true
   disableLabel?: true
+  disableAppearance?: true
 }
 
 export const LINK_FIELDS = ({ disableAppearance, disableLabel }: Args = {}): string => `{

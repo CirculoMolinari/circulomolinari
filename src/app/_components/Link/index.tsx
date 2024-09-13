@@ -1,50 +1,50 @@
-import Link from 'next/link'
 import React from 'react'
+import Link from 'next/link'
 
-import type { Page } from '../../../payload/payload-types'
-import type { Props as ButtonProps } from '../Button'
-
-import { Button } from '../Button'
+import { Page } from '../../../payload/payload-types'
+import { Button, Props as ButtonProps } from '../Button'
 
 type CMSLinkType = {
+  type?: 'custom' | 'reference'
+  url?: string
+  newTab?: boolean
+  reference?: {
+    value: string | Page
+    relationTo: 'pages'
+  }
+  label?: string
   appearance?: ButtonProps['appearance']
   children?: React.ReactNode
   className?: string
   invert?: ButtonProps['invert']
-  label?: string
-  newTab?: boolean
-  reference?: {
-    relationTo: 'pages'
-    value: Page | string
-  }
-  type?: 'custom' | 'reference'
-  url?: string
 }
 
 export const CMSLink: React.FC<CMSLinkType> = ({
+  type,
+  url,
+  newTab,
+  reference,
+  label,
   appearance,
   children,
   className,
   invert,
-  label,
-  newTab,
-  reference,
-  type,
-  url,
 }) => {
   const href =
     type === 'reference' && typeof reference?.value === 'object' && reference.value.slug
-      ? `/${reference.value.slug}`
+      ? `${reference?.relationTo !== 'pages' ? `/${reference?.relationTo}` : ''}/${
+          reference.value.slug
+        }`
       : url
 
   if (!href) return null
 
   if (!appearance) {
-    const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
+    const newTabProps = newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {}
 
     if (href || url) {
       return (
-        <Link {...newTabProps} className={className} href={href || url}>
+        <Link {...newTabProps} href={href || url} className={className}>
           {label && label}
           {children && children}
         </Link>
@@ -54,12 +54,12 @@ export const CMSLink: React.FC<CMSLinkType> = ({
 
   return (
     <Button
-      appearance={appearance}
       className={className}
-      href={href}
-      invert={invert}
-      label={label}
       newTab={newTab}
+      href={href}
+      appearance={appearance}
+      label={label}
+      invert={invert}
     />
   )
 }
