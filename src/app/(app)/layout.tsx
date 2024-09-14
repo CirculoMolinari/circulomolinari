@@ -6,13 +6,17 @@ import { Inter } from "next/font/google";
 import { Container, Theme } from "@radix-ui/themes";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
+import { Metadata } from "next";
 
 const inter = Inter({
 	subsets: ["latin"],
 	display: "swap",
 });
 
-/* Our app sits here to not cause any conflicts with payload's root layout  */
+export const metadata: Metadata = {
+	title: "Círculo Molinari",
+};
+
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 	return (
 		<html className={inter.className}>
