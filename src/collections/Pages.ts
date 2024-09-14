@@ -19,7 +19,7 @@ const Pages: CollectionConfig = {
           name: 'content',
           label: "Contenido",
           type: 'richText',
-        },
+        }
       ],
     }
     
