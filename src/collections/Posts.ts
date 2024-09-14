@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { es } from "payload/i18n/es";
 
 const Posts: CollectionConfig = {
   slug: "posts",
@@ -8,16 +9,28 @@ const Posts: CollectionConfig = {
   },
   fields: [
     {
-      name: "Título",
-      type: "text"
+      name: "title",
+      label: "Título",
+      type: "text",
+      required: true
     },
     {
-      name: "Ruta",
-      type: "text"
+      name: "slug",
+      label: "Segmento de enlace",
+      type: "text",
+      required: true
     },
     {
-      name: "Contenido",
-      type: "richText"
+      name: "author",
+      label: "Autor",
+      type: "text",
+    },
+    {
+      name: "content",
+      label: "Contenido",
+      type: "richText",
+      required: true,
+      localized: true
     }
   ]
 } 

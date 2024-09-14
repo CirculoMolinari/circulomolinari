@@ -95,9 +95,10 @@ export interface Page {
  */
 export interface Post {
   id: number;
-  Título?: string | null;
-  Ruta?: string | null;
-  Contenido?: {
+  title: string;
+  slug: string;
+  author?: string | null;
+  content: {
     root: {
       type: string;
       children: {
@@ -111,7 +112,7 @@ export interface Post {
       version: number;
     };
     [k: string]: unknown;
-  } | null;
+  };
   updatedAt: string;
   createdAt: string;
 }

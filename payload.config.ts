@@ -1,22 +1,7 @@
 import path from 'path'
 import { es } from 'payload/i18n/es'
 import {
-  AlignFeature,
-  BlockquoteFeature,
-  BlocksFeature,
-  BoldFeature,
-  ChecklistFeature,
-  HeadingFeature,
-  IndentFeature,
-  InlineCodeFeature,
-  ItalicFeature,
   lexicalEditor,
-  LinkFeature,
-  OrderedListFeature,
-  ParagraphFeature,
-  RelationshipFeature,
-  UnorderedListFeature,
-  UploadFeature,
 } from '@payloadcms/richtext-lexical'
 import { postgresAdapter } from "@payloadcms/db-postgres"
 import { buildConfig } from 'payload'
@@ -53,23 +38,6 @@ export default buildConfig({
   },
   admin: {
     user: Users.slug,
-  },
-
-  async onInit(payload) {
-    const existingUsers = await payload.find({
-      collection: 'users',
-      limit: 1,
-    })
-
-    if (existingUsers.docs.length === 0) {
-      await payload.create({
-        collection: 'users',
-        data: {
-          email: 'dev@payloadcms.com',
-          password: 'test',
-        },
-      })
-    }
   },
   sharp,
 })
