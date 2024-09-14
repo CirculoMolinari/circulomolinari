@@ -18,20 +18,23 @@ export default async function Page() {
 			</Heading>
 
 			<Box>
-				{data.docs.map((doc) => (
-					<Box className="post-preview" key={doc.id}>
-						<Link href={`/blog/${doc.id}`}>
-							<Heading as="h2">{doc.title}</Heading>
-						</Link>
+				{data.docs.map((doc) => {
+					const articles = doc.content.root.children[0].children as any[];
+					return (
+						<Box className="post-preview" key={doc.id}>
+							<Link href={`/blog/${doc.id}`}>
+								<Heading as="h2">{doc.title}</Heading>
+							</Link>
 
-						<Text as="p" mt="3">
-							{data.docs[0].author}
-						</Text>
-						<Text mt="5" as="p">
-							{doc.content.root.children[0].children.map((child) => child.text)}
-						</Text>
-					</Box>
-				))}
+							<Text as="p" mt="3">
+								{data.docs[0].author}
+							</Text>
+							<Text mt="5" as="p">
+								{articles.map((child) => child.text)}
+							</Text>
+						</Box>
+					);
+				})}
 			</Box>
 		</Section>
 	);

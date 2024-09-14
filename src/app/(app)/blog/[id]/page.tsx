@@ -30,10 +30,11 @@ export default async function Page({ params }: { params: { id: string } }) {
 
 			{data.docs.map((doc) =>
 				doc.content.root.children.map((rootChild, index) => {
+					const children = rootChild.children as any[];
 					if (rootChild.type === "paragraph")
 						return (
 							<Text key={index} as="p">
-								{rootChild.children.map((child, index) => {
+								{children.map((child, index) => {
 									if (child.format === 2)
 										return <Em key={index}>{child.text}</Em>;
 
