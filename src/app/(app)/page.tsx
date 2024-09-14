@@ -11,7 +11,6 @@ import {
 	Separator,
 	Text,
 } from "@radix-ui/themes";
-import { Post as PayloadPost } from "payload-types";
 
 export default async function Page() {
 	const payload = await getPayloadHMR({
@@ -21,8 +20,6 @@ export default async function Page() {
 	const data = await payload.find({
 		collection: "posts",
 	});
-
-	interface Post extends Omit<PayloadPost, "content"> {}
 
 	return (
 		<Section id="home">
