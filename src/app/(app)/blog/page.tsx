@@ -13,7 +13,7 @@ export default async function Page() {
 
 	return (
 		<Section>
-			<Heading as="h1" size="9">
+			<Heading as="h1" size="9" mb="8">
 				Artículos
 			</Heading>
 

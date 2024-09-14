@@ -1,10 +1,22 @@
-import { Box, Flex, Link, Text } from "@radix-ui/themes";
+import { Box, Flex, Link } from "@radix-ui/themes";
+import config from "@payload-config";
+import { getPayloadHMR } from "@payloadcms/next/utilities";
 
-export default function Header() {
+export default async function Header() {
+	const payload = await getPayloadHMR({
+		config,
+	});
+
+	const data = await payload.find({
+		collection: "media",
+	});
+
 	return (
 		<Flex id="header" align="center" justify="between">
 			<Box>
-				<Text>Círculo Molinari</Text>
+				<Link href="/">
+					<img id="logo" src={data.docs[0].url || ""} />
+				</Link>
 			</Box>
 			<Box>
 				<Flex id="navbar" direction="row">

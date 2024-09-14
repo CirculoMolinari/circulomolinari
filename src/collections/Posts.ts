@@ -2,6 +2,7 @@ import type { CollectionConfig } from "payload";
 
 const Posts: CollectionConfig = {
   slug: "posts",
+  upload: true,
   labels: {
     singular: "Artículo",
     plural: "Artículos"
