@@ -1,5 +1,4 @@
 import type { CollectionConfig } from "payload";
-import { es } from "payload/i18n/es";
 
 const Posts: CollectionConfig = {
   slug: "posts",
@@ -30,7 +29,6 @@ const Posts: CollectionConfig = {
       label: "Contenido",
       type: "richText",
       required: true,
-      localized: true
     }
   ]
 } 
