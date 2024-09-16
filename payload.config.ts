@@ -11,6 +11,8 @@ import Users from '@/collections/Users'
 import Pages from '@/collections/Pages'
 import Media from '@/collections/Media'
 import Posts from '@/collections/Posts'
+import Events from '@/collections/Events'
+import { seoPlugin } from "@payloadcms/plugin-seo";
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -18,6 +20,7 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   editor: lexicalEditor(),
   collections: [
+    Events,
     Media,
     Pages,
     Posts,
@@ -32,7 +35,14 @@ export default buildConfig({
       connectionString: process.env.POSTGRES_URI || ''
     }
   }),
-
+  plugins: [
+    seoPlugin({
+      collections: ["events", "pages", "posts"],
+      uploadsCollection: 'media',
+      generateTitle: ({ doc }) => `Círculo Molinari — ${doc.title}`,
+      generateDescription: ({ doc }) => doc.excerpt
+    })
+  ],
   i18n: {
     supportedLanguages: { es },
   },

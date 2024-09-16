@@ -1,6 +1,7 @@
 import { Em, Heading, Section, Text } from "@radix-ui/themes";
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
+import { french } from "../fonts";
 
 type RootChild = {
 	type: string;
@@ -17,7 +18,7 @@ export default async function Page() {
 
 	return (
 		<Section id="page-event">
-			<Heading as="h1" size="9" mb="8">
+			<Heading as="h1" size="9" mb="8" className={french.className}>
 				{data.docs[0].title}
 			</Heading>
 

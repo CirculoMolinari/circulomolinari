@@ -1,5 +1,10 @@
-#header {
-  border-bottom: 1px solid var(--accent-9);
+body {
+  margin: 0;
+}
+
+#header-wrapper {
+  border-bottom: 1px solid var(--accent-7);
+  box-shadow: var(--shadow-3);
 }
 
 #navbar {
@@ -10,8 +15,9 @@
 }
 
 #footer {
-  background-color: var(--amber-10);
-  padding: var(--space-5)
+  background-color: var(--amber-9);
+  border-top: 1px solid var(--gray-12);
+  padding: var(--space-5);
 }
 
 #blog-post {
@@ -25,7 +31,15 @@
   width: 100px;
 }
 
+#event {
+  background-color: var(--amber-9);
+}
+
 .post-preview {
   padding: var(--space-3);
   min-height: 300px;
+}
+
+.link {
+  color: var(--gray-12)
 }

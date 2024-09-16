@@ -3,7 +3,6 @@ import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
 import {
 	Box,
-	Card,
 	Grid,
 	Heading,
 	Link,
@@ -11,6 +10,8 @@ import {
 	Separator,
 	Text,
 } from "@radix-ui/themes";
+import { MainLayout } from "@/components/layout/main";
+import { french } from "./fonts";
 
 export default async function Page() {
 	const payload = await getPayloadHMR({
@@ -21,28 +22,39 @@ export default async function Page() {
 		collection: "posts",
 	});
 
-	const firstArticle = data.docs[0].content.root.children[0].children as any[];
+	const documents = data.docs;
+	const firstArticle = documents[0];
+	const firstArticleExcerpt = firstArticle.content.root.children[0]
+		.children as any[];
+	documents.shift();
 
 	return (
-		<Section id="home">
+		<MainLayout id="home">
 			<Box>
-				<Heading as="h1" size="8">
-					{data.docs[0].title}
-				</Heading>
+				<Link href={`blog/${firstArticle.id}`} className="link">
+					<Heading as="h1" size="9" className={french.className}>
+						{firstArticle.title}
+					</Heading>
+				</Link>
 				<Text as="p" size="4" mt="5">
-					{firstArticle.map((child) => child.text)}
+					{firstArticleExcerpt.map((child) => child.text)}
 				</Text>
 			</Box>
 			<Separator my="8" orientation="horizontal" size="4" />
 
 			<Box>
-				<Grid columns="2" gap="2">
+				<Grid
+					columns={{ initial: "1", sm: "2" }}
+					gap={{ initial: "0", sm: "2" }}
+				>
 					{data.docs.map((doc) => {
 						const articles = doc.content.root.children[0].children as any[];
 						return (
 							<Box className="post-preview" key={doc.id}>
-								<Link href={`/blog/${doc.id}`}>
-									<Heading as="h2">{doc.title}</Heading>
+								<Link href={`/blog/${doc.id}`} className="link">
+									<Heading as="h2" className={french.className}>
+										{doc.title}
+									</Heading>
 								</Link>
 
 								<Text as="p" mt="3">
@@ -56,6 +68,6 @@ export default async function Page() {
 					})}
 				</Grid>
 			</Box>
-		</Section>
+		</MainLayout>
 	);
 }
