@@ -17,7 +17,7 @@ export default async function Header() {
 			<Box>
 				<Link href="/">
 					<Image
-						src={data.docs[0]?.url ?? ""}
+						src="/logo.webp"
 						alt={data.docs[0]?.text || ""}
 						height={100}
 						width={100}
