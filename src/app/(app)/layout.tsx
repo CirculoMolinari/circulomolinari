@@ -7,6 +7,7 @@ import { Theme } from "@radix-ui/themes";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import { Metadata } from "next";
+import HeaderServer from "@/blocks/globals/Header/Server";
 
 export const metadata: Metadata = {
 	title: {
@@ -21,7 +22,7 @@ function Layout({ children }: { children: ReactNode }) {
 		<html className={inter.className} lang="es">
 			<body>
 				<Theme accentColor="gray">
-					<Header />
+					<HeaderServer />
 					{children}
 					<Footer />
 				</Theme>

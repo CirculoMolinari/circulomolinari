@@ -1,3 +1,4 @@
+import { FormBlock } from "@/blocks/Form/FormBlock";
 import type { CollectionConfig } from "payload";
 
 const Pages: CollectionConfig = {
@@ -16,11 +17,18 @@ const Pages: CollectionConfig = {
           type: 'text',
         },
         {
+          name: 'slug',
+          label: "Ruta de enlace",
+          type: 'text',
+          required: true
+        },
+        {
           name: 'content',
           label: "Contenido",
           type: 'richText',
         }
       ],
+
     }
     
 export default Pages

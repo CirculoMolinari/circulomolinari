@@ -1,8 +1,8 @@
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
 import { Box, Em, Heading, Section, Text } from "@radix-ui/themes";
-import { RichTextField } from "payload";
 import type { Metadata, ResolvingMetadata } from "next";
+import { french } from "../../fonts";
 
 type Props = {
 	params: { id: string };
@@ -42,8 +42,8 @@ export default async function Page({
 
 	return (
 		<Section id="blog-post">
-			<Box mb="5">
-				<Heading as="h1" size="8">
+			<Box mb="8">
+				<Heading as="h1" size="9" className={french.className}>
 					{data.title}
 				</Heading>
 				<Heading as="h2" size="2" my="3">
@@ -55,7 +55,7 @@ export default async function Page({
 				const children = rootChild.children as any[];
 				if (rootChild.type === "paragraph")
 					return (
-						<Text key={index} as="p">
+						<Text key={index} as="p" className="text-justify">
 							{children.map((child, index) => {
 								if (child.format === 2)
 									return <Em key={index}>{child.text}</Em>;

@@ -12,7 +12,7 @@ import Image from "next/image";
 
 export default function Footer() {
 	return (
-		<Container id="footer" size="3">
+		<Container id="footer" size="4">
 			<Grid columns="2" justify="between" align="center">
 				<Box>
 					<DataList.Root>
