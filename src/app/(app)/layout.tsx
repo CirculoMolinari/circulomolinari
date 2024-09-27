@@ -4,7 +4,6 @@ import "./globals.scss";
 
 import { inter } from "./fonts";
 import { Theme } from "@radix-ui/themes";
-import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import { Metadata } from "next";
 import HeaderServer from "@/blocks/globals/Header/Server";
