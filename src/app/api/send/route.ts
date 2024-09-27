@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
     const { name, emailAddress, phoneNumber, content } = await req.json()
     
     const { data, error } = await resend.emails.send({
-      from: emailAddress,
+      from: 'onboarding@resend.dev',
       to: ['circulomolinari@protonmail.com'],
       subject: `Inscripción de ${name}`,
       react: ContactMeEmail({ name, emailAddress, phoneNumber, content }),
