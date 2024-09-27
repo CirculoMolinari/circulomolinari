@@ -1,7 +1,9 @@
-import { Box, Heading, Link, Section, Text } from "@radix-ui/themes";
-import config from "@payload-config";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
-import { french } from "../fonts";
+import { Box, Heading, Section, Text } from '@radix-ui/themes';
+import config from '@payload-config';
+import { getPayloadHMR } from '@payloadcms/next/utilities';
+import { french } from '../fonts';
+import Link from 'next/link';
+import { RichTextField } from 'payload';
 
 export default async function Page() {
 	const payload = await getPayloadHMR({
@@ -9,7 +11,8 @@ export default async function Page() {
 	});
 
 	const data = await payload.find({
-		collection: "posts",
+		collection: 'posts',
+		showHiddenFields: true,
 	});
 
 	return (
@@ -21,9 +24,10 @@ export default async function Page() {
 			<Box>
 				{data.docs.map((doc) => {
 					const articles = doc.content.root.children[0].children as any[];
+
 					return (
 						<Box key={doc.id} mb="9">
-							<Link href={`/blog/${doc.id}`}>
+							<Link href={`/${doc.slug || ''}`}>
 								<Heading as="h2" className={french.className} size="8">
 									{doc.title}
 								</Heading>

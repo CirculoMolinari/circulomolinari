@@ -1,8 +1,9 @@
-import { Box, Container, Flex, Link } from "@radix-ui/themes";
-import config from "@payload-config";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
-import Image from "next/image";
-import { Media, Page } from "payload-types";
+import { Box, Container, Flex } from '@radix-ui/themes';
+import config from '@payload-config';
+import { getPayloadHMR } from '@payloadcms/next/utilities';
+import Image from 'next/image';
+import { Media, Page } from 'payload-types';
+import Link from 'next/link';
 
 export default async function HeaderServer() {
 	const payload = await getPayloadHMR({
@@ -10,7 +11,7 @@ export default async function HeaderServer() {
 	});
 
 	const header = await payload.findGlobal({
-		slug: "header",
+		slug: 'header',
 	});
 
 	const logo = header.logo as Media;
@@ -22,8 +23,8 @@ export default async function HeaderServer() {
 					<Box>
 						<Link href="/">
 							<Image
-								src={logo.url || ""}
-								alt={logo.text || ""}
+								src={logo.url || ''}
+								alt={logo.text || ''}
 								height={100}
 								width={100}
 							/>

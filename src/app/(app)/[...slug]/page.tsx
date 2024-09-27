@@ -8,11 +8,11 @@ import {
 	Heading,
 	Section,
 	Text,
-} from "@radix-ui/themes";
-import config from "@payload-config";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
-import { french } from "../fonts";
-import type { Event, Media, Page } from "payload-types";
+} from '@radix-ui/themes';
+import config from '@payload-config';
+import { getPayloadHMR } from '@payloadcms/next/utilities';
+import { french } from '../fonts';
+import type { Event, Media, Page } from 'payload-types';
 
 export default async function Page({
 	params: { slug },
@@ -22,18 +22,18 @@ export default async function Page({
 	});
 
 	const page = await payload.find({
-		collection: "pages",
+		collection: 'pages',
 		where: { slug: { equals: slug[0] } },
 	});
 
 	const event = await payload.find({
-		collection: "events",
+		collection: 'events',
 	});
 
 	const pageDoc = page.docs[0] as Page;
 	const eventDoc = event.docs[0] as Event;
 	const conference = eventDoc.content?.find(
-		(content) => content.blockType === "conferenceBlock",
+		(content) => content.blockType === 'conferenceBlock',
 	);
 
 	return (
@@ -45,7 +45,7 @@ export default async function Page({
 			{pageDoc.content?.root.children.map((rootChild, index) => {
 				const children = rootChild.children as any[];
 
-				if (rootChild.type === "heading")
+				if (rootChild.type === 'heading')
 					return (
 						<Heading key={index} my="5">
 							{children.map((child) => {
@@ -53,7 +53,7 @@ export default async function Page({
 							})}
 						</Heading>
 					);
-				if (rootChild.type === "paragraph")
+				if (rootChild.type === 'paragraph')
 					return (
 						<Text key={index} as="p" my="3">
 							{children.map((child, index) => {
@@ -69,8 +69,8 @@ export default async function Page({
 			{conference && (
 				<Box>
 					<Grid
-						columns={{ initial: "1", sm: "2" }}
-						gap={{ initial: "0", sm: "2" }}
+						columns={{ initial: '1', sm: '2' }}
+						gap={{ initial: '0', sm: '2' }}
 					>
 						{conference.speakers?.map((speaker) => {
 							const picture = speaker.picture as Media;
@@ -80,7 +80,7 @@ export default async function Page({
 										<Flex gap="3" align="center">
 											<Avatar
 												size="9"
-												src={picture.url || ""}
+												src={picture.url || ''}
 												radius="full"
 												color="bronze"
 												className="shadow-sm bg-amber-400"

@@ -2,11 +2,12 @@
 	"name": "molinari",
 	"version": "1.0.0",
 	"private": true,
+	"type": "module",
 	"scripts": {
 		"dev": "cross-env NODE_OPTIONS=\"${NODE_OPTIONS} --no-deprecation\" next dev",
 		"devturbo": "pnpm dev --turbo",
 		"devsafe": "rm -rf .next && pnpm dev",
-		"build": "cross-env NODE_OPTIONS=--no-deprecation next build",
+		"build": "next build",
 		"start": "cross-env NODE_OPTIONS=--no-deprecation next start",
 		"lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
 		"ci": "payload migrate && pnpm build",

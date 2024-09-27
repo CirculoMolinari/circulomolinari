@@ -5,5 +5,5 @@
 	"formatter": { "enabled": true, "indentStyle": "tab" },
 	"organizeImports": { "enabled": true },
 	"linter": { "enabled": true, "rules": { "recommended": false } },
-	"javascript": { "formatter": { "quoteStyle": "double" } }
+	"javascript": { "formatter": { "quoteStyle": "single" } }
 }
