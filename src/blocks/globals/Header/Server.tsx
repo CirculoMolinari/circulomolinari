@@ -2,7 +2,7 @@ import { Box, Container, Flex, Link } from "@radix-ui/themes";
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
 import Image from "next/image";
-import { Media } from "payload-types";
+import { Media, Page } from "payload-types";
 
 export default async function HeaderServer() {
 	const payload = await getPayloadHMR({
@@ -33,7 +33,7 @@ export default async function HeaderServer() {
 					<Box>
 						<Flex id="navbar" direction="row">
 							{header.nav.map((navItem) => {
-								const relatedPage = navItem.href?.value;
+								const relatedPage = navItem.href?.value as Page;
 
 								return (
 									<Link key={navItem.id} href={`/${relatedPage?.slug}`}>
