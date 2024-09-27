@@ -23,6 +23,11 @@ const Events: CollectionConfig = {
 			type: "text"
 		},
 		{
+			name: "conditions",
+			label: "Precio y detalles incluídos",
+			type: "text"
+		},
+		{
 			name: "introduction",
 			label: "Presentación",
 			type: "richText"

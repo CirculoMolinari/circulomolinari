@@ -58,6 +58,7 @@ export interface Event {
   id: number;
   title: string;
   slug?: string | null;
+  conditions?: string | null;
   introduction?: {
     root: {
       type: string;

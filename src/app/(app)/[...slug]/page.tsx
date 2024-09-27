@@ -126,6 +126,7 @@ export default async function Page({
 							<Heading as="h1" size="9" mb="8" className={french.className}>
 								Inscripción
 							</Heading>
+							<Text as="p">{eventDoc.conditions}</Text>
 							<ContactForm />
 						</Flex>
 					</Container>
