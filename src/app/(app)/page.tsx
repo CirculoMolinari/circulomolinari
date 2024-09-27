@@ -82,7 +82,6 @@ export default async function Page() {
 					})}
 				</Grid>
 			</Box>
-			<Box></Box>
 		</MainLayout>
 	);
 }

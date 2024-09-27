@@ -2,6 +2,7 @@ import {
 	Avatar,
 	Box,
 	Card,
+	Container,
 	Em,
 	Flex,
 	Grid,
@@ -14,6 +15,7 @@ import config from '@payload-config';
 import { getPayloadHMR } from '@payloadcms/next/utilities';
 import { french } from '../fonts';
 import type { Event, Media, Page } from 'payload-types';
+import ContactForm from '@/components/form';
 
 export default async function Page({
 	params: { slug },
@@ -73,7 +75,7 @@ export default async function Page({
 					<Heading as="h1" size="9" mb="8" className={french.className}>
 						Ponentes
 					</Heading>
-					<Box>
+					<Box mb="9">
 						<Grid
 							columns={{ initial: '1', sm: '2' }}
 							gap={{ initial: '0', sm: '2' }}
@@ -113,6 +115,20 @@ export default async function Page({
 							})}
 						</Grid>
 					</Box>
+
+					<Container size="2">
+						<Flex
+							className="w-full mt-10"
+							align="center"
+							justify="center"
+							direction="column"
+						>
+							<Heading as="h1" size="9" mb="8" className={french.className}>
+								Inscripción
+							</Heading>
+							<ContactForm />
+						</Flex>
+					</Container>
 				</Section>
 			)}
 		</Section>

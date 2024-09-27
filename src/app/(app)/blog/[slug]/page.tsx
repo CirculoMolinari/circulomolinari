@@ -11,7 +11,6 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	const slug = params.slug;
-	console.log('slug', slug);
 
 	const payload = await getPayloadHMR({
 		config,
