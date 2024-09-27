@@ -1,6 +1,6 @@
-import React from "react";
-import config from "@payload-config";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
+import React from 'react';
+import config from '@payload-config';
+import { getPayloadHMR } from '@payloadcms/next/utilities';
 import {
 	Box,
 	Em,
@@ -9,10 +9,10 @@ import {
 	Link,
 	Separator,
 	Text,
-} from "@radix-ui/themes";
-import { MainLayout } from "@/components/layout/main";
-import { french } from "./fonts";
-import type { Page } from "payload-types";
+} from '@radix-ui/themes';
+import { MainLayout } from '@/components/layout/main';
+import { french } from './fonts';
+import type { Page } from 'payload-types';
 
 export default async function Page() {
 	const payload = await getPayloadHMR({
@@ -20,14 +20,14 @@ export default async function Page() {
 	});
 
 	const pages = await payload.find({
-		collection: "pages",
-		where: { slug: { equals: "/home" } },
+		collection: 'pages',
+		where: { slug: { equals: '/home' } },
 	});
 
 	const homePage = pages.docs[0] as Page;
 
 	const posts = await payload.find({
-		collection: "posts",
+		collection: 'posts',
 	});
 
 	if (posts.docs.length === 0) return <div>No hay posts</div>;
@@ -35,15 +35,13 @@ export default async function Page() {
 	return (
 		<MainLayout id="home">
 			<Box>
-				<Link href={`blog/}`} className="link">
-					<Heading as="h1" size="9" className={french.className}>
-						{homePage.title}
-					</Heading>
-				</Link>
+				<Heading as="h1" size="9" className={french.className}>
+					{homePage.title}
+				</Heading>
 
 				{homePage.content?.root.children.map((rootChild, index) => {
 					const children = rootChild.children as any[];
-					if (rootChild.type === "paragraph")
+					if (rootChild.type === 'paragraph')
 						return (
 							<Text key={index} as="p" size="4" mt="5">
 								{children.map((child, index) => {
@@ -60,14 +58,14 @@ export default async function Page() {
 
 			<Box>
 				<Grid
-					columns={{ initial: "1", sm: "2" }}
-					gap={{ initial: "0", sm: "2" }}
+					columns={{ initial: '1', sm: '2' }}
+					gap={{ initial: '0', sm: '2' }}
 				>
 					{posts.docs.map((doc) => {
 						const articles = doc.content.root.children[0].children as any[];
 						return (
 							<Box className="post-preview" key={doc.id}>
-								<Link href={`/blog/${doc.id}`} className="link">
+								<Link href={`/blog/${doc.slug}`} className="link">
 									<Heading as="h2" className={french.className}>
 										{doc.title}
 									</Heading>

@@ -7,6 +7,7 @@ import {
 	Grid,
 	Heading,
 	Section,
+	Separator,
 	Text,
 } from '@radix-ui/themes';
 import config from '@payload-config';
@@ -67,46 +68,52 @@ export default async function Page({
 			})}
 
 			{conference && (
-				<Box>
-					<Grid
-						columns={{ initial: '1', sm: '2' }}
-						gap={{ initial: '0', sm: '2' }}
-					>
-						{conference.speakers?.map((speaker) => {
-							const picture = speaker.picture as Media;
-							return (
-								<Box key={speaker.id}>
-									<Card variant="ghost">
-										<Flex gap="3" align="center">
-											<Avatar
-												size="9"
-												src={picture.url || ''}
-												radius="full"
-												color="bronze"
-												className="shadow-sm bg-amber-400"
-												fallback="T"
-											/>
-											<Box>
-												<Text
-													as="div"
-													size="7"
-													weight="bold"
-													mb="4"
-													className={french.className}
-												>
-													{speaker.speaker}
-												</Text>
-												<Text as="div" size="2" color="gray">
-													{speaker.introduction}
-												</Text>
-											</Box>
-										</Flex>
-									</Card>
-								</Box>
-							);
-						})}
-					</Grid>
-				</Box>
+				<Section>
+					<Separator size="4" mb="9" />
+					<Heading as="h1" size="9" mb="8" className={french.className}>
+						Ponentes
+					</Heading>
+					<Box>
+						<Grid
+							columns={{ initial: '1', sm: '2' }}
+							gap={{ initial: '0', sm: '2' }}
+						>
+							{conference.speakers?.map((speaker) => {
+								const picture = speaker.picture as Media;
+								return (
+									<Box key={speaker.id}>
+										<Card variant="ghost">
+											<Flex gap="3" align="center">
+												<Avatar
+													size="9"
+													src={picture.url || ''}
+													radius="full"
+													color="bronze"
+													className="shadow-sm bg-amber-400"
+													fallback="T"
+												/>
+												<Box>
+													<Text
+														as="div"
+														size="7"
+														weight="bold"
+														mb="4"
+														className={french.className}
+													>
+														{speaker.speaker}
+													</Text>
+													<Text as="div" size="2" color="gray">
+														{speaker.introduction}
+													</Text>
+												</Box>
+											</Flex>
+										</Card>
+									</Box>
+								);
+							})}
+						</Grid>
+					</Box>
+				</Section>
 			)}
 		</Section>
 	);

@@ -3,7 +3,6 @@ import config from '@payload-config';
 import { getPayloadHMR } from '@payloadcms/next/utilities';
 import { french } from '../fonts';
 import Link from 'next/link';
-import { RichTextField } from 'payload';
 
 export default async function Page() {
 	const payload = await getPayloadHMR({
@@ -27,7 +26,7 @@ export default async function Page() {
 
 					return (
 						<Box key={doc.id} mb="9">
-							<Link href={`/${doc.slug || ''}`}>
+							<Link href={`/blog/${doc.slug || ''}`}>
 								<Heading as="h2" className={french.className} size="8">
 									{doc.title}
 								</Heading>
