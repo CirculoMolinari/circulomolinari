@@ -7,17 +7,15 @@ import * as z from 'zod';
 
 const formSchema = z.object({
 	name: z.string().min(2, {
-		message: 'Name must be at least 2 characters.',
+		message: 'El nombre debe tener al menos 2 caracteres',
 	}),
 	email: z.string().email({
-		message: 'Email must be in proper format',
+		message: 'Ingresa un formato correcto de correo electrónico',
 	}),
 	phone: z.string().min(2, {
-		message: 'Phone number must be at least 2 characters.',
+		message: 'Introduce un número de teléfono válido',
 	}),
-	content: z.string().min(2, {
-		message: 'Content must be at least 2 characters.',
-	}),
+	content: z.string(),
 });
 
 export default function ContactForm() {
@@ -104,12 +102,6 @@ export default function ContactForm() {
 						id="message"
 						{...register('content')}
 					/>
-
-					{errors?.content && (
-						<p className="px-1 text-xs text-red-600">
-							{errors.content.message}
-						</p>
-					)}
 				</div>
 
 				<div className="mt-4">
@@ -117,7 +109,8 @@ export default function ContactForm() {
 						color="gray"
 						variant="solid"
 						type="submit"
-						size="3"
+						size="4"
+						className="w-full"
 						highContrast
 					>
 						Inscribirme

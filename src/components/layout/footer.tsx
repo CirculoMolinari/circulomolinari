@@ -59,7 +59,7 @@ export default function Footer() {
 					</DataList.Root>
 				</Box>
 				<Box>
-					<DataList.Root>
+					<DataList.Root size={{ initial: '1', md: '3' }}>
 						<DataList.Item>
 							<DataList.Label>
 								<Strong>Contacto</Strong>
