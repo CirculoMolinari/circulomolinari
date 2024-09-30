@@ -7,13 +7,17 @@ import {
 	Separator,
 	Strong,
 	Text,
-} from "@radix-ui/themes";
-import Image from "next/image";
+} from '@radix-ui/themes';
+import Image from 'next/image';
 
 export default function Footer() {
 	return (
 		<Container id="footer" size="4">
-			<Grid columns="2" justify="between" align="center">
+			<Grid
+				columns={{ initial: '1', md: '2' }}
+				justify="between"
+				align="center"
+			>
 				<Box>
 					<DataList.Root>
 						<DataList.Item>

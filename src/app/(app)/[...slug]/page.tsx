@@ -116,7 +116,7 @@ export default async function Page({
 						</Grid>
 					</Box>
 
-					<Container size="2">
+					<Container size={{ initial: '2', sm: '4' }}>
 						<Flex
 							className="w-full mt-10"
 							align="center"

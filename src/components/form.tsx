@@ -42,7 +42,7 @@ export default function ContactForm() {
 	}
 
 	return (
-		<div className="w-1/2 rounded-md mx-auto bg-amber-400 p-10 mt-10">
+		<div className="rounded-md drop-shadow-md mx-auto bg-amber-400 p-10 mt-10">
 			<form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
 				<div>
 					<label htmlFor="name">Nombre y apellido</label>
