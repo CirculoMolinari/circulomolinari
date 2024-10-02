@@ -35,7 +35,6 @@ const Posts: CollectionConfig = {
 			name: "slug",
 			label: "Segmento de enlace",
 			type: "text",
-			hidden: true,
 			hooks: {
 				beforeValidate: [formatSlug()],
 			},

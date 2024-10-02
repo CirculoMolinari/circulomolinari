@@ -63,6 +63,8 @@ export default async function Page() {
 				>
 					{posts.docs.map((doc) => {
 						const articles = doc.content.root.children[0].children as any[];
+						console.log('articles', articles);
+						console.log('doc', doc);
 						return (
 							<Box className="post-preview" key={doc.id}>
 								<Link href={`/blog/${doc.slug}`} className="link">
