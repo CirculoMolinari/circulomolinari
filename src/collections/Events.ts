@@ -1,4 +1,5 @@
 import { ConferenceBlock } from "@/blocks/Conference/ConferenceBlock";
+import { ScheduleBlock } from "@/blocks/Schedule/ScheduleBlock";
 import type { CollectionConfig } from "payload";
 
 const Events: CollectionConfig = {
@@ -38,7 +39,7 @@ const Events: CollectionConfig = {
 			name: "content",
 			label: "Contenido",
 			type: "blocks",
-			blocks: [ConferenceBlock],
+			blocks: [ConferenceBlock, ScheduleBlock],
 		},
 	],
 };
