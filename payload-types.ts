@@ -57,8 +57,8 @@ export interface UserAuthOperations {
 export interface Event {
   id: number;
   title: string;
-  slug?: string | null;
-  conditions?: string | null;
+  slug: string;
+  conditions: string;
   introduction?: {
     root: {
       type: string;

@@ -20,12 +20,14 @@ const Events: CollectionConfig = {
 		{
 			name: "slug",
 			label: "Ruta de enlace",
-			type: "text"
+			type: "text",
+			required: true
 		},
 		{
 			name: "conditions",
 			label: "Precio y detalles incluídos",
-			type: "text"
+			type: "text",
+			required: true
 		},
 		{
 			name: "introduction",

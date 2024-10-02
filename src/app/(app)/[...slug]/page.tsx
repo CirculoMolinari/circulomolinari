@@ -78,22 +78,24 @@ export default async function Page({
 					<Box mb="9">
 						<Grid
 							columns={{ initial: '1', sm: '2' }}
-							gap={{ initial: '0', sm: '2' }}
+							gap={{ initial: '0', sm: '9' }}
 						>
 							{conference.speakers?.map((speaker) => {
 								const picture = speaker.picture as Media;
 								return (
 									<Box key={speaker.id}>
 										<Card variant="ghost">
-											<Flex gap="3" align="center">
-												<Avatar
-													size="9"
-													src={picture.url || ''}
-													radius="full"
-													color="bronze"
-													className="shadow-sm bg-amber-400"
-													fallback="T"
-												/>
+											<Flex gap="3" align="center" className="py-5 md:py-10">
+												{picture && (
+													<Avatar
+														size="9"
+														src={picture.url || ''}
+														radius="full"
+														color="bronze"
+														className="shadow-sm bg-amber-400"
+														fallback="T"
+													/>
+												)}
 												<Box>
 													<Text
 														as="div"
