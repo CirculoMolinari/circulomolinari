@@ -33,7 +33,7 @@ export default async function Page() {
 							</Link>
 
 							<Text as="p" mt="3">
-								{data.docs[0].author}
+								{doc.author}
 							</Text>
 							<Text mt="5" as="p">
 								{articles.map((child) => child.text)}
