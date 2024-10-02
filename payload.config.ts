@@ -47,7 +47,7 @@ export default buildConfig({
       generateTitle: ({ doc }) => `Círculo Molinari — ${doc.title}`,
       generateDescription: ({ doc }) => doc.collection.content,
       generateURL: ({ doc }) =>
-      `https://circulomolinari.com/${doc.collection?.slug}/${doc?.slug}`
+      `https://circulomolinari.com/${doc?.slug}`
     }),
     formBuilderPlugin({
     }),
