@@ -51,6 +51,15 @@ const Posts: CollectionConfig = {
 			type: "richText",
 			required: true,
 		},
+		{
+			name: "picture",
+			label: "Portada",
+			type: 'upload',
+			relationTo: 'media',
+			admin: {
+				position: 'sidebar'
+			}
+		}
 	],
 };
 

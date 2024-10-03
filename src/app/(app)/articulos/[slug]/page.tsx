@@ -3,7 +3,8 @@ import { getPayloadHMR } from '@payloadcms/next/utilities';
 import { Box, Em, Heading, Section, Strong, Text } from '@radix-ui/themes';
 import type { Metadata } from 'next';
 import { french } from '../../fonts';
-import { Post } from 'payload-types';
+import { Media, Post } from 'payload-types';
+import Image from 'next/image';
 
 type Props = {
 	params: { slug: string };
@@ -39,9 +40,21 @@ export default async function Page({
 	});
 	const post = data.docs[0] as Post;
 	const date = new Date(post.createdAt).toLocaleDateString();
+	const picture = post.picture as Media;
 
 	return (
 		<Section id="blog-post">
+			{picture && (
+				<Box className="relative w-full h-80 mb-5">
+					<Image
+						src={picture.url || ''}
+						alt={picture.text || ''}
+						fill
+						className="object-cover object-left-top rounded-md border border-slate-800"
+					/>
+				</Box>
+			)}
+
 			<Box>
 				<Heading as="h1" size="9" className={french.className}>
 					{post.title}

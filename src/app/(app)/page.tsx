@@ -13,6 +13,7 @@ import {
 import { MainLayout } from '@/components/layout/main';
 import { french } from './fonts';
 import type { Page } from 'payload-types';
+import Image from 'next/image';
 
 export default async function Page() {
 	const payload = await getPayloadHMR({
@@ -31,6 +32,7 @@ export default async function Page() {
 	});
 
 	if (posts.docs.length === 0) return <div>No hay posts</div>;
+	console.log('posts', posts.docs);
 
 	return (
 		<MainLayout id="home">
@@ -67,6 +69,16 @@ export default async function Page() {
 						return (
 							<Box className="post-preview" key={doc.id}>
 								<Link href={`/articulos/${doc.slug}`} className="link">
+									{doc.picture && (
+										<div className="relative w-full h-52 mb-5">
+											<Image
+												src={doc.picture.url || ''}
+												alt={doc.picture.text || ''}
+												fill
+												className="object-cover rounded-md border border-slate-800 object-left-top"
+											/>
+										</div>
+									)}
 									<Heading as="h2" className={french.className}>
 										{doc.title}
 									</Heading>
