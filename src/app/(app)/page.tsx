@@ -63,8 +63,7 @@ export default async function Page() {
 				>
 					{posts.docs.map((doc) => {
 						const articles = doc.content.root.children[0].children as any[];
-						console.log('articles', articles);
-						console.log('doc', doc);
+
 						return (
 							<Box className="post-preview" key={doc.id}>
 								<Link href={`/articulos/${doc.slug}`} className="link">
@@ -76,7 +75,7 @@ export default async function Page() {
 								<Text as="p" mt="3">
 									{doc.author}
 								</Text>
-								<Text mt="5" as="p">
+								<Text mt="5" as="p" className="text-justify">
 									{articles.map((child) => child.text)}
 								</Text>
 							</Box>

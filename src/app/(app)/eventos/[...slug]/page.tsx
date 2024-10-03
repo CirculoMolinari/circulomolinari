@@ -41,7 +41,7 @@ export default async function Page({
 	);
 
 	return (
-		<Section id="page-event">
+		<Section id="page-event" p="0">
 			<Heading as="h1" size="9" mb="8" className={french.className}>
 				{eventDoc?.title}
 			</Heading>
@@ -83,7 +83,7 @@ export default async function Page({
 
 			{schedule && (
 				<Section>
-					<Separator size="4" my="9" />
+					<Separator size="4" my="6" />
 
 					<Heading as="h1" size="9" mb="8" className={french.className}>
 						Programa
@@ -114,7 +114,7 @@ export default async function Page({
 
 			{conference && (
 				<Section>
-					<Separator size="4" mb="9" />
+					<Separator size="4" mb="6" />
 					<Heading as="h1" size="9" mb="8" className={french.className}>
 						Ponentes
 					</Heading>

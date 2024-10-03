@@ -1,8 +1,14 @@
-import { MainLayout } from '@/components/layout/main';
+import { Container, Section } from '@radix-ui/themes';
 import { ReactNode } from 'react';
 
 function PageLayout({ children }: { children: ReactNode }) {
-	return <MainLayout>{children}</MainLayout>;
+	return (
+		<Section id="event-main">
+			<Container size="3" p={{ initial: '5', sm: '0' }}>
+				{children}
+			</Container>
+		</Section>
+	);
 }
 
 export default PageLayout;

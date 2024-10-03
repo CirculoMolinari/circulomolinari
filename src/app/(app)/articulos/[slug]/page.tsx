@@ -38,6 +38,7 @@ export default async function Page({
 		where: { slug: { equals: slug } },
 	});
 	const post = data.docs[0] as Post;
+	console.log(post.createdAt);
 
 	return (
 		<Section id="blog-post">
