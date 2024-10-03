@@ -15,7 +15,7 @@ export default async function Page() {
 	});
 
 	return (
-		<Section>
+		<Section p="0">
 			<Heading as="h1" size="9" mb="8" className={french.className}>
 				Artículos
 			</Heading>

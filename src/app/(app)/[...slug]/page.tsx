@@ -19,7 +19,7 @@ export default async function Page({
 	const pageDoc = page.docs[0] as Page;
 
 	return (
-		<Section id="page-event">
+		<Section id="page-event" p="0">
 			<Heading as="h1" size="9" mb="8" className={french.className}>
 				{page.docs[0]?.title}
 			</Heading>
