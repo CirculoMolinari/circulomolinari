@@ -21,7 +21,7 @@ export default async function Page() {
 
 	const pages = await payload.find({
 		collection: 'pages',
-		where: { slug: { equals: '/home' } },
+		where: { slug: { equals: 'home' } },
 	});
 
 	const homePage = pages.docs[0] as Page;
@@ -67,7 +67,7 @@ export default async function Page() {
 						console.log('doc', doc);
 						return (
 							<Box className="post-preview" key={doc.id}>
-								<Link href={`/blog/${doc.slug}`} className="link">
+								<Link href={`/articulos/${doc.slug}`} className="link">
 									<Heading as="h2" className={french.className}>
 										{doc.title}
 									</Heading>

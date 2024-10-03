@@ -75,19 +75,33 @@ export interface Event {
     [k: string]: unknown;
   } | null;
   content?:
-    | {
-        speakers?:
-          | {
-              speaker: string;
-              picture?: (number | null) | Media;
-              introduction?: string | null;
-              id?: string | null;
-            }[]
-          | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'conferenceBlock';
-      }[]
+    | (
+        | {
+            speakers?:
+              | {
+                  speaker: string;
+                  picture?: (number | null) | Media;
+                  introduction?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'conferenceBlock';
+          }
+        | {
+            schedules?:
+              | {
+                  schedule?: string | null;
+                  description?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'scheduleBlock';
+          }
+      )[]
     | null;
   meta?: {
     title?: string | null;
@@ -420,15 +434,15 @@ export interface Header {
   logo: number | Media;
   nav: {
     label: string;
-    href?:
-      | ({
+    href:
+      | {
           relationTo: 'pages';
           value: number | Page;
-        } | null)
-      | ({
+        }
+      | {
           relationTo: 'events';
           value: number | Event;
-        } | null);
+        };
     id?: string | null;
   }[];
   updatedAt?: string | null;

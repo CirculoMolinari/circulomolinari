@@ -16,6 +16,11 @@ export default async function HeaderServer() {
 
 	const logo = header.logo as Media;
 
+	const relatedRoutes = {
+		events: '/eventos/',
+		pages: '/',
+	};
+
 	return (
 		<Box id="header-wrapper">
 			<Container size="4">
@@ -34,10 +39,11 @@ export default async function HeaderServer() {
 					<Box>
 						<Flex id="navbar" direction="row">
 							{header.nav.map((navItem) => {
-								const relatedPage = navItem.href?.value as Page;
+								const relatedPage = navItem.href.value as Page;
+								const route = relatedRoutes[navItem.href.relationTo];
 
 								return (
-									<Link key={navItem.id} href={`/${relatedPage?.slug}`}>
+									<Link key={navItem.id} href={`${route}${relatedPage.slug}`}>
 										{navItem.label}
 									</Link>
 								);

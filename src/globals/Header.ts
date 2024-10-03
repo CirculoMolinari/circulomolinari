@@ -28,6 +28,7 @@ export const Header: GlobalConfig = {
           label: 'Enlace',
           type: 'relationship',
           relationTo: ['pages', 'events'],
+          required: true
         }
       ]
     }

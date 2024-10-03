@@ -26,7 +26,7 @@ export default async function Page() {
 
 					return (
 						<Box key={doc.id} mb="9">
-							<Link href={`/blog/${doc.slug || ''}`}>
+							<Link href={`/articulos/${doc.slug || ''}`}>
 								<Heading as="h2" className={french.className} size="8">
 									{doc.title}
 								</Heading>
