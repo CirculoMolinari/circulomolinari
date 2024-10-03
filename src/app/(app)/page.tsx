@@ -12,7 +12,7 @@ import {
 } from '@radix-ui/themes';
 import { MainLayout } from '@/components/layout/main';
 import { french } from './fonts';
-import type { Page } from 'payload-types';
+import type { Media, Page } from 'payload-types';
 import Image from 'next/image';
 
 export default async function Page() {
@@ -65,15 +65,16 @@ export default async function Page() {
 				>
 					{posts.docs.map((doc) => {
 						const articles = doc.content.root.children[0].children as any[];
+						const picture = doc.picture as Media;
 
 						return (
 							<Box className="post-preview" key={doc.id}>
 								<Link href={`/articulos/${doc.slug}`} className="link">
-									{doc.picture && (
+									{picture && (
 										<div className="relative w-full h-52 mb-5">
 											<Image
-												src={doc.picture.url || ''}
-												alt={doc.picture.text || ''}
+												src={picture.url || ''}
+												alt={picture.text || ''}
 												fill
 												className="object-cover rounded-md border border-slate-800 object-left-top"
 											/>
