@@ -1,28 +1,37 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@radix-ui/themes';
+import { Button, Text } from '@radix-ui/themes';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
 const formSchema = z.object({
-	name: z.string().min(2, {
-		message: 'El nombre debe tener al menos 2 caracteres',
-	}),
-	email: z.string().email({
-		message: 'Ingresa un formato correcto de correo electrónico',
-	}),
-	phone: z.string().min(2, {
-		message: 'Introduce un número de teléfono válido',
-	}),
-	content: z.string(),
+	name: z
+		.string()
+		.min(2, {
+			message: 'El nombre debe tener al menos 2 caracteres',
+		})
+		.max(50),
+	email: z
+		.string()
+		.email({
+			message: 'Ingresa un formato correcto de correo electrónico',
+		})
+		.max(50),
+	phone: z
+		.string()
+		.min(2, {
+			message: 'Introduce un número de teléfono válido',
+		})
+		.max(20),
+	content: z.string().max(500),
 });
 
 export default function ContactForm() {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { isSubmitting, isSubmitSuccessful, errors },
 	} = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 	});
@@ -40,13 +49,26 @@ export default function ContactForm() {
 	}
 
 	return (
-		<div className="rounded-md drop-shadow-md mx-auto bg-amber-400 p-10 mt-10">
+		<div className="relative rounded-md drop-shadow-md mx-auto bg-amber-400 p-10 mt-10">
+			{isSubmitSuccessful && (
+				<div className="absolute rounded-md drop-shadow-md p-10 z-10 bg-amber-400 w-full h-full top-0 left-0">
+					<Text as="p" className="text-2xl font-semibold">
+						¡Inscripción enviada con éxito!
+					</Text>
+					<Text as="p" className="text-lg mt-5">
+						¡Gracias por inscribirte! En breve nos pondremos en contacto.
+					</Text>
+				</div>
+			)}
+
 			<form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
 				<div>
-					<label htmlFor="name">Nombre y apellido</label>
+					<label htmlFor="name" className="font-semibold">
+						Nombre y apellido
+					</label>
 
 					<input
-						className="w-full border bg-amber-200 border-amber-700 p-3 text-sm"
+						className="w-full mt-2 border rounded-md focus:outline-none bg-amber-100 border-amber-500 shadow-sm p-3 text-sm"
 						type="text"
 						id="name"
 						{...register('name')}
@@ -59,10 +81,12 @@ export default function ContactForm() {
 
 				<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
 					<div>
-						<label htmlFor="email">Correo electrónico</label>
+						<label htmlFor="email" className="font-semibold">
+							Correo electrónico
+						</label>
 
 						<input
-							className="w-full bg-amber-200 border border-amber-700 p-3 text-sm"
+							className="w-full mt-2 focus:outline-none shadow-sm rounded-md bg-amber-100 border border-amber-500 p-3 text-sm"
 							type="email"
 							id="email"
 							{...register('email')}
@@ -76,10 +100,12 @@ export default function ContactForm() {
 					</div>
 
 					<div>
-						<label htmlFor="phone">Teléfono de contacto</label>
+						<label htmlFor="phone" className="font-semibold">
+							Teléfono de contacto
+						</label>
 
 						<input
-							className="w-full bg-amber-200 border border-amber-700 p-3 text-sm"
+							className="w-full mt-2 shadow-sm rounded-md focus:outline-none bg-amber-100 border border-amber-500 p-3 text-sm"
 							type="tel"
 							id="phone"
 							{...register('phone')}
@@ -94,10 +120,12 @@ export default function ContactForm() {
 				</div>
 
 				<div>
-					<label htmlFor="message">¿Quieres decirnos algo?</label>
+					<label htmlFor="message" className="font-semibold">
+						¿Quieres decirnos algo?
+					</label>
 
 					<textarea
-						className="w-full rounded-md bg-amber-200 border border-amber-700 p-3 text-sm"
+						className="w-full mt-2 rounded-md shadow-md focus:outline-none bg-amber-100 border border-amber-500 p-3 text-sm"
 						rows={8}
 						id="message"
 						{...register('content')}
@@ -110,10 +138,11 @@ export default function ContactForm() {
 						variant="solid"
 						type="submit"
 						size="4"
-						className="w-full"
+						className="w-full font-semibold"
 						highContrast
+						disabled={isSubmitting}
 					>
-						Inscribirme
+						{!isSubmitting ? 'Inscribirme' : 'Enviando inscripción...'}
 					</Button>
 				</div>
 			</form>

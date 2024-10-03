@@ -7,8 +7,11 @@ import {
 	Flex,
 	Grid,
 	Heading,
+	Link,
 	Section,
 	Separator,
+	Strong,
+	Table,
 	Text,
 } from '@radix-ui/themes';
 import config from '@payload-config';
@@ -33,6 +36,9 @@ export default async function Page({
 	const conference = eventDoc.content?.find(
 		(content) => content.blockType === 'conferenceBlock',
 	);
+	const schedule = eventDoc.content?.find(
+		(content) => content.blockType === 'scheduleBlock',
+	);
 
 	return (
 		<Section id="page-event">
@@ -42,7 +48,6 @@ export default async function Page({
 
 			{eventDoc.introduction?.root.children.map((rootChild, index) => {
 				const children = rootChild.children as any[];
-				console.log('rootChild', rootChild.type);
 
 				if (rootChild.type === 'heading')
 					return (
@@ -56,15 +61,56 @@ export default async function Page({
 					return (
 						<Text key={index} as="p" my="3">
 							{children.map((child, index) => {
-								console.log('child', child.format);
+								if (child.format === 1)
+									return <Strong key={index}>{child.text}</Strong>;
+
 								if (child.format === 2)
 									return <Em key={index}>{child.text}</Em>;
+
+								if (child.format === 8) {
+									return (
+										<Link key={index} href={''} color="blue">
+											{child.text}
+										</Link>
+									);
+								}
 
 								return child.text;
 							})}
 						</Text>
 					);
 			})}
+
+			{schedule && (
+				<Section>
+					<Separator size="4" my="9" />
+
+					<Heading as="h1" size="9" mb="8" className={french.className}>
+						Programa
+					</Heading>
+
+					<Table.Root variant="surface" size="3" className="shadow-md">
+						<Table.Body>
+							{schedule.schedules?.map((schedule) => {
+								const isHeader =
+									schedule.schedule === null && schedule.description !== '';
+
+								return (
+									<Table.Row
+										key={schedule.id}
+										className={isHeader ? 'bg-amber-300 font-bold text-lg' : ''}
+									>
+										<Table.RowHeaderCell className="font-semibold">
+											{schedule.schedule}
+										</Table.RowHeaderCell>
+										<Table.Cell>{schedule.description}</Table.Cell>
+									</Table.Row>
+								);
+							})}
+						</Table.Body>
+					</Table.Root>
+				</Section>
+			)}
 
 			{conference && (
 				<Section>
