@@ -23,7 +23,7 @@ export default async function HeaderServer() {
 
 	return (
 		<Box id="header-wrapper">
-			<Container size="4">
+			<Container size="3">
 				<Flex id="header" align="center" justify="between">
 					<Box>
 						<Link href="/">

@@ -1,6 +1,6 @@
 import config from '@payload-config';
 import { getPayloadHMR } from '@payloadcms/next/utilities';
-import { Box, Em, Heading, Section, Text } from '@radix-ui/themes';
+import { Box, Em, Heading, Section, Strong, Text } from '@radix-ui/themes';
 import type { Metadata } from 'next';
 import { french } from '../../fonts';
 import { Post } from 'payload-types';
@@ -38,17 +38,17 @@ export default async function Page({
 		where: { slug: { equals: slug } },
 	});
 	const post = data.docs[0] as Post;
-	console.log(post.createdAt);
+	const date = new Date(post.createdAt).toLocaleDateString();
 
 	return (
 		<Section id="blog-post">
-			<Box mb="8">
+			<Box>
 				<Heading as="h1" size="9" className={french.className}>
 					{post.title}
 				</Heading>
-				<Heading as="h2" size="2" my="3">
-					{post.author}
-				</Heading>
+				<Text as="div" size="2" className="mt-10 mb-5">
+					<Strong>{post.author}</Strong> | Publicado el {date}
+				</Text>
 			</Box>
 
 			{post.content.root.children.map((rootChild, index) => {

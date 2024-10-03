@@ -57,23 +57,29 @@ export default async function Page({
 							})}
 						</Heading>
 					);
+
 				if (rootChild.type === 'paragraph')
 					return (
 						<Text key={index} as="p" my="3">
 							{children.map((child, index) => {
+								console.log('children', child.type, child);
 								if (child.format === 1)
 									return <Strong key={index}>{child.text}</Strong>;
 
 								if (child.format === 2)
 									return <Em key={index}>{child.text}</Em>;
 
-								if (child.format === 8) {
+								if (child.type === 'link')
 									return (
-										<Link key={index} href={''} color="blue">
-											{child.text}
+										<Link
+											key={index}
+											href={child.fields.url}
+											target="_blank"
+											color="blue"
+										>
+											{child.children[0].text}
 										</Link>
 									);
-								}
 
 								return child.text;
 							})}
